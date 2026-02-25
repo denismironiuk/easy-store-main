@@ -12,10 +12,9 @@ This repository serves as the central hub for the EasyStore project — a full-s
 
 ### 📦 Project Structure
 The ecosystem is modularized into four specialized repositories:
-1. [Frontend Service](ссылка) - React UI.
-2. [Backend API](ссылка) - Node.js microservice.
-3. [GitOps Manifests](ссылка) - Kustomize overlays and K8s configurations.
-4. [Infrastructure (IaC)](ссылка) - Cluster-wide settings and monitoring (Azure CNI, Gateway API).
+1. [Frontend Service](https://github.com/denismironiuk/online-store-frontend) - React UI.
+2. [Backend API](https://github.com/denismironiuk/online-store-backend) - Node.js microservice.
+3. [GitOps Manifests](https://github.com/denismironiuk/online-store-gitops) - Kustomize overlays and K8s configurations.
 
 ### 🚀 Automation Flow
 1. **CI**: Jenkins detects changes via Poll SCM/Webhooks, runs ESLint Quality Gates, and builds images using Kaniko.
