@@ -1,58 +1,38 @@
-# EasyStore: Cloud-Native GitOps Ecosystem on Azure 🚀
+# EasyStore: Full-Scale Cloud-Native Ecosystem 🚀
 
-This is a comprehensive e-commerce ecosystem architected with a microservices approach. This repository serves as the **Master Blueprint**, documenting the end-to-end automation, networking, and deployment strategies used to build a resilient production environment.
-
----
-
-## 🏗 Infrastructure Blueprint
-
-Rather than just deploying containers, this project focuses on a robust infrastructure foundation:
-
-### 🌐 Scalable Networking (Azure CNI Overlay)
-* **Strategy**: Implemented **Azure CNI Overlay** to ensure high-performance pod networking.
-* **Benefit**: Solved the "IP exhaustion" problem common in standard CNI by assigning pods IPs from a dedicated overlay address space, allowing for thousands of pods without depleting the VNET subnet.
-
-### 🚦 Modern Traffic Management (Gateway API)
-* **Evolution**: Moved beyond legacy Ingress to the **Kubernetes Gateway API**.
-* **Implementation**: Configured dedicated Gateways and HTTPRoutes for fine-grained traffic control, enabling path-based routing between Frontend and Backend services.
-
-### 🔄 Deployment Strategy (The GitOps Way)
-* **Source of Truth**: All infrastructure and application states are stored in Git.
-* **Sync Engine**: **ArgoCD** continuously monitors the GitOps repository, ensuring the AKS cluster remains in the desired state.
-* **CI Automation**: **Jenkins** handles the heavy lifting—from code quality gates (ESLint/Jest) to secure container builds using **Kaniko**.
+This is a production-grade e-commerce ecosystem architected with a microservices approach. This repository serves as the **Master Blueprint**, documenting the end-to-end automation, networking, and Infrastructure as Code (IaC) strategies used to build a resilient environment on Azure.
 
 ---
 
-## 📦 Project Ecosystem
-The project is modularized into specialized repositories:
-
-1.  **[Frontend Service](https://github.com/denismironiuk/online-store-frontend)**: React 18 UI with dynamic environment injection.
-2.  **[Backend API](https://github.com/denismironiuk/online-store-backend)**: Node.js/Express service with MongoDB Atlas integration.
-3.  **[GitOps Manifests](https://github.com/denismironiuk/online-store-gitops)**: Kustomize-based manifests for seamless environment promotion.
+## 🏗 Infrastructure as Code (Terraform)
+The entire infrastructure is managed declaratively using **Terraform**. 
+* **IaC Migration**: Successfully migrated manual Azure setups into version-controlled code using `terraform import`.
+* **State Management**: Implemented a **Remote Backend** using Azure Storage Accounts with state locking to ensure security and team collaboration.
+* **Networking**: Configured **Azure CNI Overlay** for high-performance pod networking and the **Kubernetes Gateway API** for modern traffic routing.
 
 ---
 
-## 📊 High-Level Architecture
+## 📦 Project Structure & Repositories
+The ecosystem is modularized into four specialized repositories:
 
+1.  **[Infrastructure (IaC)](https://github.com/denismironiuk/online-store-infrastructure)**: Terraform manifests for AKS, Networking, and Remote State management.
+2.  **[Backend API](https://github.com/denismironiuk/online-store-backend)**: Node.js/Express service with MongoDB Atlas and Redis.
+3.  **[Frontend Service](https://github.com/denismironiuk/online-store-frontend)**: React-based UI optimized for containerized deployment.
+4.  **[GitOps Manifests](https://github.com/denismironiuk/online-store-gitops)**: Kustomize configurations and ArgoCD application definitions.
 
+---
 
-```mermaid
-graph TD
-    subgraph "External Access"
-    GW[Gateway API / Load Balancer]
-    end
+## 🔄 Automation & GitOps Flow
+1. **CI Pipeline**: Jenkins (Pipeline as Code) triggers on every push, runs integration tests (Jest), and builds secure images using **Kaniko**.
+2. **CD Pipeline**: Jenkins updates image tags in the GitOps repository.
+3. **Synchronization**: **ArgoCD** detects changes and reconciles the AKS cluster state automatically.
 
-    subgraph "AKS Cluster (Azure CNI Overlay)"
-    FE[Frontend Pods]
-    BE[Backend Pods]
-    end
+---
 
-    subgraph "External Services"
-    DB[(MongoDB Atlas)]
-    RED[(Redis Cache)]
-    end
+## 💼 Professional Background
+* **Transition**: Evolved from managing high-precision manufacturing systems at **Tower Semiconductor** (2024-2025) to architecting scalable cloud infrastructures.
+* **Education**: Developed as a capstone project during intensive R&D training at **Infinity Labs**, Israel.
+* **Skills**: Azure, Kubernetes, Terraform, Jenkins, GitOps, Linux Networking.
 
-    GW --> FE
-    FE --> BE
-    BE --> DB
-    BE --> RED
+---
+*Architected by Denis Mironiuk. Focus on reliability, scalability, and automation.*
